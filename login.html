@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">NewsApp</a>
+    </div>
+  </nav>
+
+  <!-- Login Header -->
+  <header class="container text-center my-4">
+    <h1>Login</h1>
+  </header>
+
+  <!-- Login Form -->
+  <div class="form-container">
+    <form id="loginForm">
+      <input type="email" id="email" class="form-input" placeholder="Email" required><br>
+      <input type="password" id="password" class="form-input" placeholder="Password" required><br>
+      <button type="submit" class="form-button">Login</button>
+    </form>
+    <a href="/auth/google">
+        <button>Login with Google</button>
+      </a>
+      
+
+    <!-- Link to Registration -->
+    <p>Not registered? <a href="register.html">Register Now</a></p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (response.ok) {
+        alert('Login successful!');
+        window.location.href = 'index.html';
+      } else {
+        alert('Invalid credentials.');
+      }
+    });
+  </script>
+</body>
+
+</html>

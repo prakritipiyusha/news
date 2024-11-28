@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">NewsApp</a>
+    </div>
+  </nav>
+
+  <!-- Registration Header -->
+  <header class="container text-center my-4">
+    <h1>Create an Account</h1>
+  </header>
+
+  <!-- Registration Form -->
+  <div class="form-container">
+    <form id="registerForm">
+      <input type="text" id="name" class="form-input" placeholder="Name" required><br>
+      <input type="email" id="email" class="form-input" placeholder="Email" required><br>
+      <input type="password" id="password" class="form-input" placeholder="Password" required><br>
+      <button type="submit" class="form-button">Register</button>
+    </form>
+
+    <!-- Link to Login -->
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const response = await fetch('http://localhost:3000/api/users/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      if (response.ok) {
+        alert('User registered successfully!');
+        window.location.href = 'login.html';
+      } else {
+        alert('Error registering user.');
+      }
+    });
+  </script>
+</body>
+
+</html>
